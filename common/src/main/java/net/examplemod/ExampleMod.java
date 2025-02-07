@@ -8,6 +8,8 @@ import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -24,15 +26,17 @@ public class ExampleMod {
     public static final Supplier<RegistrarManager> REGISTRIES = Suppliers.memoize(() -> RegistrarManager.get(MOD_ID));
 
     // Registering a new creative tab
-    public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(MOD_ID, Registries.CREATIVE_MODE_TAB);
-    public static final RegistrySupplier<CreativeModeTab> EXAMPLE_TAB = TABS.register("example_tab", () ->
-            CreativeTabRegistry.create(Component.translatable("itemGroup." + MOD_ID + ".example_tab"),
+    public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(MOD_ID,
+            Registries.CREATIVE_MODE_TAB);
+    public static final RegistrySupplier<CreativeModeTab> EXAMPLE_TAB = TABS.register("example_tab",
+            () -> CreativeTabRegistry.create(Component.translatable("itemGroup." + MOD_ID + ".example_tab"),
                     () -> new ItemStack(ExampleMod.EXAMPLE_ITEM.get())));
-    
+
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(MOD_ID, Registries.ITEM);
-    public static final RegistrySupplier<Item> EXAMPLE_ITEM = ITEMS.register("example_item", () ->
-            new Item(new Item.Properties().arch$tab(ExampleMod.EXAMPLE_TAB)));
-    
+    public static final RegistrySupplier<Item> EXAMPLE_ITEM = ITEMS.register("example_item",
+            () -> new Item(new Item.Properties().setId(ResourceKey.create(Registries.ITEM,
+                    ResourceLocation.fromNamespaceAndPath(MOD_ID, "example_item"))).arch$tab(ExampleMod.EXAMPLE_TAB)));
+
     public static void init() {
         TABS.register();
         ITEMS.register();

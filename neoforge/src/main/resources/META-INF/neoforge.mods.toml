@@ -22,20 +22,20 @@ config = "examplemod-common.mixins.json"
 [[dependencies.examplemod]]
 modId = "neoforge"
 mandatory = true
-versionRange = "[21.0,21.1)"
+versionRange = "*"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.examplemod]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.21]"
+versionRange = "*"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.examplemod]]
 modId = "architectury"
 mandatory = true
-versionRange = "[13,14)"
+versionRange = "*"
 ordering = "AFTER"
 side = "BOTH"
